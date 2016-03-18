@@ -1,0 +1,22 @@
+{
+  "name": "mybcrypt",
+  "version": "1.0.0",
+  "description": "node bcrypt handlebars",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "keywords": [
+    "node",
+    "bcrypt",
+    "cloud"
+  ],
+  "author": "Akhil",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "",
+    "mongoose": "latest",
+    "update": "^0.4.2",
+    "bcrypt": "^0.8.5"
+  }
+}

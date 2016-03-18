@@ -1,0 +1,38 @@
+<div id="sidebar-wrapper">
+       <ul class="sidebar-nav">
+            <br/>
+            <li class="sidebar-brand">
+                <a class="brandFont" align="center" href="/">
+                  Leave the marks !!!
+                </a>
+            </li>
+            <br/>
+
+            <div align="center">
+            <img class="img-circle" src="/images/logo.png"/>
+            </div>
+            <br/>
+
+            <li>
+             <a class="menus" align="center" href="/stories">Stories</a>
+            </li>
+            <li>
+             <a class="menus" align="center" href="/new-story">Share your own story</a>
+            </li>
+            <li>
+             <a class="menus" align="center" href="/techStack">Tech stack</a>
+            </li>
+
+            <br/><br/><br/>
+            <% if( typeof(session.loggedIn) == 'undefined' ) {%>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <a type="button" href="/login" class="btn btn-primary btn-lg outline">Login</a>&nbsp;&nbsp;&nbsp;
+             <a type="button" href="/register" class="btn btn-danger btn-lg outline">Sign Up</a>
+            </div>
+            <%} else{%>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <a type="button" align="center" href="/logout" class="btn btn-danger btn-lg outline">Logout</a>&nbsp;&nbsp;&nbsp;
+            </div>
+            <%}%>
+    </ul>
+</div>
