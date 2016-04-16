@@ -1,22 +1,25 @@
 {
   "name": "mybcrypt",
   "version": "1.0.0",
-  "description": "node bcrypt handlebars",
+  "description": "node mongolab handlebars",
   "main": "app.js",
   "scripts": {
     "test": "nodemon app.js"
   },
   "keywords": [
     "node",
-    "bcrypt",
-    "cloud"
+    "handlebars",
+    "mongolab"
   ],
   "author": "Akhil",
   "license": "MIT",
   "dependencies": {
-    "mongodb": "",
+    "mongodb": "latest",
     "mongoose": "latest",
-    "update": "^0.4.2",
-    "bcrypt": "^0.8.5"
+    "body-parser": "^1.14.2",
+    "chalk": "^1.1.1",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "express-handlebars": "latest"
   }
 }

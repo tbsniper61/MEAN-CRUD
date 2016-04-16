@@ -1,0 +1,43 @@
+<html>
+<head>
+{{>head}}
+</head>
+<body>
+
+ <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar" ></span>
+              <span class="icon-bar" ></span>
+              <span class="icon-bar" ></span>
+           </button>
+           <a href="/" class="navbar-brand">Login Register!</a>
+          </div>
+
+          <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="/">Login page</a></li>
+                <li><a href="/registerForm">Register New User</a></li>
+              </ul>
+          </div>
+      </div>
+</div>
+<br><br><br><br>
+ <div class="container">
+   <div class="row">
+    <div align="center">
+      <H2>{{welcomeMessage}} </H2>
+        <blockquote class="mainLines">
+          <code> The page you are looking for is not available or may have been moved.</code>
+        We actually don't want anyone to see this message, it feels very embarrassing.
+        </blockquote>
+    </div>
+    <br/>
+    </div>
+ </div>
+
+{{>jsIncludes}}
+</body>
+</html>
+

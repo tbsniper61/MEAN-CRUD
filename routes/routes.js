@@ -1,6 +1,5 @@
 var mongoose = require( 'mongoose' );
 var User = mongoose.model( 'User' );
-var bcrypt = require('bcrypt');
 
 exports.loginPageHandler = function (req, res){
 	req.session.destroy();
@@ -15,17 +14,11 @@ exports.landingPageHandler = function (req, res){
 	mongoose.model('User').findOne({username:nmReq}, function(err, userObj){
 	    if(userObj === null){
 	     	loginOutcome = "Login Failed: User name does not exist in db";
-	    } else {  //userObj is Not NULL
-	    	bcrypt.compare(pwdReq, userObj.password, function(err, isMatch) {
-		        if (err) {
-		        	loginOutcome = "Login Failed : bcrypt.comare yielded error" ;
-		        }else if (isMatch === true){
+	    } else if (pwdReq === userObj.password){
 					loginOutcome = "Login successful";
-				} else{
+		} else{
 					loginOutcome = "Login Failed: Password did not match";
-				}
-		     }
-	    }//userObj is Not NULL
+		}
 		console.log( "Login Name %s, Password %s. Login outcome [%s]", nmReq, pwdReq, loginOutcome);
 		res.render('landingpage.handlebars', {welcomeMessage:loginOutcome});
 	});//findOne
@@ -33,7 +26,7 @@ exports.landingPageHandler = function (req, res){
 
 
 exports.registerFormHandler = function(req, res){
-   res.render("register", {});
+   res.render("register.handlebars", {});
 }; //registerFormHandler
 
 exports.registerUserHandler = function(req, res){

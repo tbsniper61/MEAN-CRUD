@@ -20,6 +20,19 @@ app.post('/toLanding', routes.landingPageHandler);
 app.get('/registerForm', routes.registerFormHandler);
 app.post('/register', routes.registerUserHandler);
 
+
+//error handling
+app.use("*", function(req, res) {
+     res.status(404);
+     res.render('404.handlebars', {});
+});
+
+app.use(function(error, req, res, next) {
+     console.log(chalk.red('Error : 500::' + error))
+     res.status(500);
+     res.render('500.handlebars', {err:error});  // good for knowledge but don't do it
+});
+
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log('HTTP server is listening on port: ' + port);
