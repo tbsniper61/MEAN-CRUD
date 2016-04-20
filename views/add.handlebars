@@ -1,0 +1,29 @@
+<html>
+<head>
+{{>head}}
+</head>
+<body>
+{{>includeMenu}}
+<br><br><br><br>
+ <div class="container">
+  <div class="row">
+  <br><br><br>
+  <form class="margin-base-vertical" method="post" action="/add">
+      <p class="input-group ">
+      Technology : <input type="text" class="form-control input-lg" 
+      name="techname" value = ""/>
+      </p>
+      <p class="input-group ">
+      Description: <input type="text" required class="form-control input-lg" 
+      name="techdescr" value = "" />
+      </p><br/>
+      <p class="text-center">
+      <button type="submit" class="btn btn-success btn-lg">Add Technology
+      </button>
+      </p>
+  </form>
+ </div>
+</div>
+{{>jsIncludes}}
+</body>
+</html>

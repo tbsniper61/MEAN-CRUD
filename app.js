@@ -22,22 +22,29 @@ app.get('/console', routes.consoleHandler);
 app.get('/registerForm', routes.registerFormHandler);
 app.post('/register', routes.registerUserHandler);
 app.get('/edit', routes.editPageHandler);
+app.get('/delete', routes.deletePageHandler);
 app.post('/saveChanges', routes.saveChangesHandler);
+app.get('/addForm', routes.addFormHandler);
+app.post('/add', routes.addHandler);
 
 
 //error handling
 app.use("*", function(req, res) {
-     res.status(404);
-     res.render('404.handlebars', {});
+    res.status(404);
+    res.render('message.handlebars', 
+    	{message:'<blockquote class="mainLines"><code> The page you are looking for is not available or may have been moved.</code> </blockquote>'}
+    	);
 });
 
 app.use(function(error, req, res, next) {
-     console.log(chalk.red('Error : 500::' + error))
-     res.status(500);
-     res.render('500.handlebars', {err:error});  // good for knowledge but don't do it
+    console.log(chalk.red('Error : 500::' + error))
+    res.status(500);
+    res.render('message.handlebars', 
+    	{message:'<blockquote class="mainLines"><code>something went wrong as you tried to access this page</code>Probably this happened because there are some bugs in the application</blockquote>'}
+    	);
 });
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
-	console.log('HTTP server is listening on port: ' + port);
+	console.log(chalk.green('HTTP server is listening on port: ' + port));
 });

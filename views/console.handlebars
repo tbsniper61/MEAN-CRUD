@@ -10,13 +10,17 @@
 		<div align="center">
       <H4>{{message}} </H4>
 			<H2>JavaScript technology Stack </H2>
+      <a href='/addForm'>
+        <span class="glyphicon glyphicon-plus"></span>Add Technology
+      </a>
       <div class="table-responsive">          
         <table class="table">
           <thead>
             <tr>
               <th>Technology</th>
               <th>Description</th>
-              <th>Action</th>
+              <th>Edit</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -24,13 +28,20 @@
           <tr>
               <td>{{this.tech}}</td>
               <td>{{this.description}}</td>
-              <td><a href='/edit?tech={{this.tech}}'>Edit</a></td>
+              <td><a href='/edit?tech={{this.tech}}'>
+                <span class="glyphicon glyphicon-pencil"></span>
+              </a></td>
+              <td><a href='/delete?tech={{this.tech}}'>
+                <span class="glyphicon glyphicon-remove"></span>
+              </a></td>
           </tr>
           {{/each}}
           </tbody>
         </table>
-        </div>
-
+      </div>
+      <a href='/addForm'>
+        <span class="glyphicon glyphicon-plus"></span>Add Technology
+      </a>
 		</div>
 		<br/>
     </div>

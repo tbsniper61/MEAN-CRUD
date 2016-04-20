@@ -1,6 +1,7 @@
 var mongoose = require( 'mongoose' );
 var UserModel = mongoose.model( 'UserModel' );
 var TechModel = mongoose.model( 'TechModel' );
+var chalk = require('chalk');
 var gLoggedIN = 0;
 
 exports.loginPageHandler = function (req, res){
@@ -9,8 +10,8 @@ exports.loginPageHandler = function (req, res){
 
 exports.logoutPageHandler = function (req, res){
   req.session.destroy();
-  gLoggedIN = 0;
-  res.render('message.handlebars', {message:'You have logged-out successfully.', 
+  gLoggedIN = 0;  
+  res.render('message.handlebars', {message:'<span class="label label-success">You have logged-out successfully</span>', 
                                    LoggedIN: gLoggedIN});
 };//logoutPageHandler
 
@@ -21,22 +22,22 @@ exports.authHandler = function (req, res){
 
 	UserModel.findOne({username:nmReq}, function(err, userObj){
     if(userObj === null){
-     	authResult = "Login Failed: User name does not exist in db";
+     	authResult = '<span class="label label-danger">Login Failed: User name does not exist in db</span>' ;
       res.render('message.handlebars', {message:authResult, 
                                         LoggedIN: gLoggedIN
                                         });
     } else if (pwdReq === userObj.password){
-				authResult = "Login successful";
+				authResult =   '<span class="label label-success">Login successful</span>' ;   
         gLoggedIN = 1;
         res.render('message.handlebars', {message:authResult,
                                           LoggedIN: gLoggedIN
                                          });
 	  } else{
-				authResult = "Login Failed: Password did not match";
+				authResult = '<span class="label label-danger">Login Failed: Password did not match</span>' ; 
         res.render('message.handlebars', {message:authResult, 
                                           LoggedIN: gLoggedIN});
 	  }
-		console.log( "Login Name %s, Password %s. Login outcome [%s]", nmReq, pwdReq, authResult);
+		console.log("Login Name %s, Password %s. Login outcome [%s]", nmReq, pwdReq, authResult);
 	});//UserModel.findOne
 }; //authHandler
 
@@ -76,7 +77,7 @@ exports.registerUserHandler = function(req, res){
                                           LoggedIN: gLoggedIN});
      }else{
        req.session.newuser = savedUser.username;
-       res.render('message.handlebars', {message:"Registration succesful", 
+       res.render('message.handlebars', {message:'<span class="label label-success">Registration successful</span>', 
                                          LoggedIN: gLoggedIN});
      }
    }); //newuser.save
@@ -84,10 +85,9 @@ exports.registerUserHandler = function(req, res){
 
 exports.editPageHandler = function(req, res){
   var techToEdit = req.query.tech;
-  console.log("Tech to edit : " + techToEdit);
   TechModel.findOne({tech:techToEdit}, function(err, techRec){
   if (!err){
-    console.log(techRec.tech + " : " + techRec.description );
+    console.log(chalk.yellow("Going to edit -> [" + techRec.tech + " : " + techRec.description + "]"));
     res.render('editPage.handlebars', {techRec: techRec, LoggedIN: gLoggedIN});
   } 
 }); //TechModel.findOne
@@ -103,13 +103,46 @@ exports.saveChangesHandler = function(req, res){
                     {$set: { description: techDescrRequest }}, 
                     {multi:false}, function(err, updatedRec){
    if(err){
-     message = "Update failed for tech : " + techRequest;
-     console.log(message);
+     message = '<span class="label label-danger">Update Failed</span>';
+     console.log(chalk.red(message));
      res.render('message.handlebars', {message: message, LoggedIN: gLoggedIN});
    }else{
-     message = "A record saved succesfully ";
-     console.log(message);
+     message = '<span class="label label-success">A record saved succesfully</span>';
+     console.log(chalk.green(message));
      res.render('message.handlebars', {message: message, LoggedIN: gLoggedIN});
    }
   });
 }; //saveChangesHandler
+
+exports.deletePageHandler = function(req, res){
+  var techToEdit = req.query.tech;
+  TechModel.remove({tech:techToEdit}, function(err, techRec){
+  if (!err){
+    var message = '<span class="label label-success">A record removed successfully</span>'
+    res.render('message.handlebars', {message: message, LoggedIN: gLoggedIN});
+  } 
+}); //TechModel.remove
+}; //editPageHandler
+
+exports.addFormHandler = function(req, res){
+    res.render('add.handlebars', {LoggedIN: gLoggedIN});
+ }; //addFormHandler
+
+exports.addHandler = function(req, res){
+  var message;
+  var newTech = new TechModel();
+  newTech.tech = req.body.techname;
+  newTech.description = req.body.techdescr;
+   //save to db through model :: Add a record
+   newTech.save(function(err, savedUser){
+     if(err){
+       message = '<span class="label label-danger">A record already exists with given technology</span>';
+       console.log(message);
+       res.render("message.handlebars", {message:message, LoggedIN: gLoggedIN});
+     }else{
+       message = '<span class="label label-success">A new technology added successfully</span>';
+       res.render('message.handlebars', {message:message, LoggedIN: gLoggedIN});
+     }
+   }); //newTech.save
+}; //addHandler
+
