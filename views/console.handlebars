@@ -1,0 +1,41 @@
+<html>
+<head>
+{{>head}}
+</head>
+<body>
+{{>includeMenu}}
+<br><br><br><br>
+ <div class="container">
+   <div class="row">
+		<div align="center">
+      <H4>{{message}} </H4>
+			<H2>JavaScript technology Stack </H2>
+      <div class="table-responsive">          
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Technology</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{#each recordsArray}}
+          <tr>
+              <td>{{this.tech}}</td>
+              <td>{{this.description}}</td>
+              <td><a href='/edit?tech={{this.tech}}'>Edit</a></td>
+          </tr>
+          {{/each}}
+          </tbody>
+        </table>
+        </div>
+
+		</div>
+		<br/>
+    </div>
+ </div>
+
+{{>jsIncludes}}
+</body>
+</html>

@@ -16,9 +16,13 @@ app.set('view engine', 'handlebars');
 app.engine('handlebars', hbars({}));
 
 app.get('/', routes.loginPageHandler);
-app.post('/toLanding', routes.landingPageHandler);
+app.get('/logout', routes.logoutPageHandler);
+app.post('/auth', routes.authHandler);
+app.get('/console', routes.consoleHandler);
 app.get('/registerForm', routes.registerFormHandler);
 app.post('/register', routes.registerUserHandler);
+app.get('/edit', routes.editPageHandler);
+app.post('/saveChanges', routes.saveChangesHandler);
 
 
 //error handling

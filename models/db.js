@@ -27,8 +27,12 @@ var userSchema = new mongoose.Schema({
   password: String
 }, {collection: 'UsersUnsafePassword'});
 
+var techSchema = new mongoose.Schema({
+  tech: {type: String, unique:true},
+  description: {type: String}
+}, {collection: 'Tech'});
 
 // register the User model
-mongoose.model( 'User', userSchema);
-
+mongoose.model( 'UserModel', userSchema);
+mongoose.model( 'TechModel', techSchema);
 
