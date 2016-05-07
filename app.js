@@ -4,8 +4,8 @@ var session = require('express-session');
 var hbars = require('express-handlebars');
 var chalk = require('chalk');
 var db = require('./models/db.js');  // db.js must be required before routes.js
+var app = module.exports = express(); // exporting apps must be done before routes.js
 var routes = require('./routes/routes.js');
-var app = express();
 
 
 app.use(express.static(__dirname + "/public"));
@@ -22,8 +22,8 @@ app.get('/console', routes.consoleHandler);
 app.get('/registerForm', routes.registerFormHandler);
 app.post('/register', routes.registerUserHandler);
 app.get('/edit', routes.editPageHandler);
-app.get('/delete', routes.deletePageHandler);
 app.post('/saveChanges', routes.saveChangesHandler);
+app.get('/delete', routes.deletePageHandler);
 app.get('/addForm', routes.addFormHandler);
 app.post('/add', routes.addHandler);
 
@@ -48,3 +48,4 @@ var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log(chalk.green('HTTP server is listening on port: ' + port));
 });
+
