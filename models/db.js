@@ -2,8 +2,8 @@ var chalk = require('chalk');
 var mongoose = require( 'mongoose' );
 
 
-var dbURI = 'mongodb://127.0.0.1/abcDB';
-//var dbURI =  'mongodb://edu:edu@ds015879.mlab.com:15879/edurekadb';
+//var dbURI = 'mongodb://127.0.0.1/abcDB';
+var dbURI =  'mongodb://edu:edu@ds015879.mlab.com:15879/edurekadb';
 console.log("Establishing connection to the DB");
 
 //   ****** CONNECTIONS

@@ -18,54 +18,38 @@ exports.logoutPageHandler = function (req, res){
 };//logoutPageHandler
 
 exports.authHandler = function (req, res){
-	var nmReq = req.body.nm;
-	var pwdReq = req.body.pwd;
+	var nmReq = req.body.loginName;
+	var pwdReq = req.body.loginPassword;
 	var authResult;
   req.session.loggedin = false;
 
 	UserModel.findOne({username:nmReq}, function(err, userObj){
+    var authResult;
     if(userObj === null){
-     	authResult = '<span class="label label-danger">Login Failed: User name does not exist in db</span>' ;
-      res.render('message.handlebars', {message:authResult, 
-                                        LoggedIN: req.session.loggedin
-                                        });
+      authResult = false;
     } else if (pwdReq === userObj.password){
-				authResult =   '<span class="label label-success">Login successful</span>' ;   
-        req.session.loggedin = true;
-        //****** go directly to console page 
-        // req.url = '/console';
-        // req.method = 'get';
-        // app._router.handle(req, res);
-
-        //****** go to console page
-        res.render('message.handlebars', {message:authResult,
-                                         LoggedIN: req.session.loggedin
-                                        });
+      authResult = true;
 	  } else{
-				authResult = '<span class="label label-danger">Login Failed: Password did not match</span>' ; 
-        res.render('message.handlebars', {message:authResult, 
-                                          LoggedIN: req.session.loggedin});
+			authResult = false;
 	  }
+    res.json(authResult);
 		console.log("Login Name %s, Password %s. Login outcome [%s]", nmReq, pwdReq, authResult);
 	});//UserModel.findOne
 }; //authHandler
 
 
 exports.consoleHandler = function (req, res){
-  if (req.session.loggedin){}else{
-    res.status(500);
-    res.send("Incorrect request");
-    return;
-  }
-  
-  var recordsArray; //to keep all tech records
+  // if (req.session.loggedin){}else{
+  //   res.status(500);
+  //   res.send("Incorrect request");
+  //   return;
+  // }
+
   TechModel.find({}, function(err, techArray){
     if (!err){
-      recordsArray = techArray;
-      res.render('console.handlebars', {recordsArray:recordsArray,
-                                        LoggedIN: req.session.loggedin
-                                       });
-      } 
+      res.json(techArray);
+      //console.log("tech array being returned=" + JSON.stringify(techArray));
+    } 
   }); //TechModel.find       
 }; //consoleHandler
 
@@ -98,31 +82,28 @@ exports.registerUserHandler = function(req, res){
 
 exports.editPageHandler = function(req, res){
   var techToEdit = req.query.tech;
+  console.log("techToEdit="  + techToEdit);
   TechModel.findOne({tech:techToEdit}, function(err, techRec){
   if (!err){
     console.log(chalk.yellow("Going to edit -> [" + techRec.tech + " : " + techRec.description + "]"));
-    res.render('editPage.handlebars', {techRec: techRec, LoggedIN: req.session.loggedin});
+    res.json(techRec);
   } 
 }); //TechModel.findOne
 }; //editPageHandler
 
 exports.saveChangesHandler = function(req, res){
-  var techRequest = req.body.techname;
-  var techDescrRequest = req.body.techdescr;
-  //console.log("Saving Edited records : " + techRequest + " : " + techDescrRequest);
+  var techRequest = req.body.tech;
+  var techDescrRequest = req.body.description;
+  console.log("Saving Edited records : " + techRequest + " : " + techDescrRequest);
   var message;
   //update rec through model
   TechModel.update({tech:techRequest}, 
                     {$set: { description: techDescrRequest }}, 
                     {multi:false}, function(err, updatedRec){
    if(err){
-     message = '<span class="label label-danger">Update Failed</span>';
-     console.log(chalk.red(message));
-     res.render('message.handlebars', {message: message, LoggedIN: req.session.loggedin});
+     res.json(false);
    }else{
-     message = '<span class="label label-success">A record saved succesfully</span>';
-     console.log(chalk.green(message));
-     res.render('message.handlebars', {message: message, LoggedIN: req.session.loggedin});
+     res.json(true);
    }
   });
 }; //saveChangesHandler
@@ -130,10 +111,13 @@ exports.saveChangesHandler = function(req, res){
 exports.deletePageHandler = function(req, res){
   var techToEdit = req.query.tech;
   TechModel.remove({tech:techToEdit}, function(err, techRec){
-  if (!err){
-    var message = '<span class="label label-success">A record removed successfully</span>'
-    res.render('message.handlebars', {message: message, LoggedIN: req.session.loggedin});
-  } 
+  if(err){
+     res.json(false);
+     console.log(techToEdit + " could not be deleted");
+   }else{
+     res.json(true);
+     console.log(techToEdit + " deleted successfully");
+   } 
 }); //TechModel.remove
 }; //editPageHandler
 
@@ -144,18 +128,17 @@ exports.addFormHandler = function(req, res){
 exports.addHandler = function(req, res){
   var message;
   var newTech = new TechModel();
-  newTech.tech = req.body.techname;
-  newTech.description = req.body.techdescr;
+  newTech.tech = req.body.tech;
+  newTech.description = req.body.description;
    //save to db through model :: Add a record
    newTech.save(function(err, savedUser){
      if(err){
-       message = '<span class="label label-danger">A record already exists with given technology</span>';
-       console.log(message);
-       res.render("message.handlebars", {message:message, LoggedIN: req.session.loggedin});
-     }else{
-       message = '<span class="label label-success">A new technology added successfully</span>';
-       res.render('message.handlebars', {message:message, LoggedIN: req.session.loggedin});
-     }
+     res.json(false);
+     console.log(techToEdit + " could not be added");
+   }else{
+     res.json(true);
+     console.log(techToEdit + " added successfully");
+   } 
    }); //newTech.save
 }; //addHandler
 

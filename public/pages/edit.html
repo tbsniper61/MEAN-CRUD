@@ -1,0 +1,28 @@
+<!-- edit.html -->
+<div class="container">
+<!-- ng-controller="editController as eController"  -->
+<ul class="nav navbar-nav navbar-right" >
+        <li><a href="#login" ng-hide="eController.loginStatus"><i class="fa fa-home"></i> Login</a></li>
+        <li><a href="#logout" ng-show="eController.loginStatus"><i class="fa fa-home"></i> Logout</a></li>
+        <li><a href="#console"><i class="fa fa-comment"></i> Console</a></li>
+   </ul>
+  <h3>Edit Tech Page</h3>
+
+	<div class="row">
+		<br><br>
+		<form class="margin-base-vertical" ng-submit="eController.editFormSubmit()" >
+		  <p class="input-group"><span ng-bind="eController.message"></span></p>
+		  <p class="input-group">
+		  Technology : <input type="text" class="form-control input-lg" name="techname" readonly ng-model="eController.editTech.tech" />
+		  </p>
+		  <p class="input-group ">
+		  Description: <input type="text" required class="form-control input-lg" name="techdescr" ng-model="eController.editTech.description" />
+		  </p><br/>
+		  <p class="text-center">
+		  <button type="submit" class="btn btn-success btn-lg">Post Changes</button>
+		  </p>
+	</form>
+	</div>
+
+</div>
+

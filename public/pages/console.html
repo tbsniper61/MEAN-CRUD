@@ -1,0 +1,44 @@
+<div class="container">
+<!-- ng-controller="consoleController as cController" -->
+<ul class="nav navbar-nav navbar-right" >
+        <li><a href="#login" ng-hide="cController.loginStatus"><i class="fa fa-home"></i> Login</a></li>
+        <li><a href="#logout" ng-show="cController.loginStatus"><i class="fa fa-home"></i> Logout</a></li>
+        <li><a href="#console"><i class="fa fa-comment"></i> Console</a></li>
+   </ul>
+ <p class="input-group "><span ng-bind="cController.message"></span></p>
+ <div class="row" align="center">
+  <H3>JavaScript technology Stack </H3>
+  <a href='/#addTech'>
+    <span class="glyphicon glyphicon-plus"></span>Add Technology
+  </a>
+  <div class="table-responsive" >          
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Technology</th>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="tech in cController.techRecords">
+		  <tr>
+		      <td ng-bind="tech.tech"></td>
+		      <td ng-bind="tech.description"></td>
+		      <td><button id={{tech.tech}} 
+		      			  ng-click="cController.editLinkClicked($event)">
+		        <span class="glyphicon glyphicon-pencil"></span>
+		      </button></td>
+		      <td><button  id={{tech.tech}}
+		                  ng-click="cController.deleteLinkClicked($event)">
+		        <span class="glyphicon glyphicon-remove"></span>
+		      </button></td>
+		  </tr>
+      </tbody>
+    </table>
+  </div>
+  <a href='/#addTech'>
+    <span class="glyphicon glyphicon-plus"></span>Add Technology
+  </a>
+ </div>
+</div>

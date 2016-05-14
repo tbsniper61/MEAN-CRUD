@@ -1,0 +1,33 @@
+
+<div class="jumbotron text-center">
+    <h3>Login Page</h3>
+    <div class="container">
+    <!--  ng-controller="loginController as lController" -->
+	   <div class="row">
+		<div class="col-md-4 col-md-offset-0 panel panel-default">
+		<h4 align="left" class="margin-base-vertical">Login</h4>
+		<form name="LoginForm" ng-submit="lController.loginSubmit()" 
+				class="margin-base-vertical">
+			<p class="input-group "><span ng-bind="lController.message"></span></p>
+	        <p class="input-group ">
+				<span class="input-group-addon"><span class="icon-envelope"></span></span>
+				<input name="nm" type="text" required 
+					   ng-model="lController.login.loginName"
+				  	   placeholder="Login Name" class="form-control input-lg" />
+			</p>
+	        <p class="input-group ">
+				<span class="input-group-addon"><span class="icon-key"></span></span>
+				<input name="pwd" type="password" required 
+					   ng-model="lController.login.loginPassword"
+				       placeholder="Password" class="form-control input-lg"/>
+			</p>
+	        <br/>
+			<p class="text-center">
+				<button type="submit" ng-disable="LoginForm.$invalid"
+				       class="btn btn-success btn-lg">Login</button>
+			</p>
+		</form>
+		</div>
+	   </div>
+	 </div>
+</div>
