@@ -1,14 +1,14 @@
 {
   "name": "CRUD",
   "version": "1.0.0",
-  "description": "node mongolab handlebars",
+  "description": "node mongolab angularjs",
   "main": "app.js",
   "scripts": {
     "test": "nodemon app.js"
   },
   "keywords": [
     "node",
-    "handlebars",
+    "angularjs",
     "mongolab"
   ],
   "author": "Akhil",
@@ -19,6 +19,5 @@
     "chalk": "^1.1.1",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
-    "express-handlebars": "latest"
   }
 }

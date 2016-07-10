@@ -1,5 +1,5 @@
 // also include ngRoute for all our routing needs
-var rApp = angular.module('meanRouteApp', ['ngRoute']);
+var rApp = angular.module('meanRouteApp', ['ngRoute', 'ngResource']);
 
 // configure our routes
 rApp.config(function($routeProvider) {
@@ -23,8 +23,21 @@ rApp.config(function($routeProvider) {
             templateUrl : 'pages/login.html',
             controller  : 'loginController',
             controllerAs : 'lController'
-        })		
+        })	
 
+        // route for the logout page
+        .when('/logout', {
+            templateUrl : 'pages/logout.html',
+            controller  : 'loginController',
+            controllerAs : 'lController'
+        })  	
+
+        // route for the register page
+        .when('/register', {
+            templateUrl : 'pages/register.html',
+            controller  : 'loginController',
+            controllerAs : 'lController'
+        })    
 
         // route for the add page
         .when('/addTech', {
@@ -59,6 +72,11 @@ function techServiceFunction(){
 //service: create a service on the basis of function
 rApp.service('TechService', [techServiceFunction]);
 
+rApp.factory('TechRestService', function($resource) {
+  return $resource('/api/tech/:id'); // The full endpoint address
+});
+
+// *****************************loginController***********************************
 rApp.controller('loginController', 
   ['$http', 'TechService', '$location', function($http, tservice, $location) {
   var self = this;
@@ -81,33 +99,45 @@ rApp.controller('loginController',
         }
       );//then
   };//self.loginSubmit 
+
+  self.registerSubmit = function() {
+      $http({method: 'post',
+            url: '/register',
+            data: self.login,
+            headers: {'Content-Type': 'application/vnd.api+json'}
+      }).then(
+        function(response) {
+          if(response.data){
+            self.message = 'Registration succeessful';
+            tservice.setLoggedIN(false);
+          }else{
+            self.message = 'Registration Failed';
+            tservice.setLoggedIN(false);
+          };
+          console.log(self.message);
+        }
+      );//then
+  };//self.loginSubmit 
+
 }]); //loginController
 
-
+// *****************************consoleController***********************************
 rApp.controller('consoleController', 
-  ['$http', '$location', 'TechService', function($http, $location, TechService) {
+  ['$http', '$location', 'TechService', 'TechRestService', 
+     function($http, $location, TechService, TechRestService) {
   var self = this;
   self.techRecords = [];
   self.loginStatus = TechService.getLoggedIN();
 
-  self.fetchTechRecords = function() {
-    return $http.get('/console').then(
-        function(response) {
-      self.techRecords = response.data;
-      self.message = 'fetch succeeded';
-    }, function(errResponse) {
-      self.message = 'Error while fetching tech records';
-    });
-  };//self.fetchTechRecords
 
-  self.fetchTechRecords();
+  self.techRecords = TechRestService.query();
 
   self.editLinkClicked = function(event) {
     var techToEdit = event.currentTarget.id;
     console.log(" Record to Edit=" + techToEdit);
 
       $http({method: 'get',
-            url: '/edit?tech=' + techToEdit,
+            url: '/api/tech/' + techToEdit,
             headers: {'Content-Type': 'application/vnd.api+json'}
       }).then(
         function(response) {
@@ -129,18 +159,20 @@ rApp.controller('consoleController',
 
 self.deleteLinkClicked = function(event) {
     var techToEdit = event.currentTarget.id;
-    console.log(" Record to Edit=" + techToEdit);
+    console.log(" Record to Delete = " + techToEdit);
 
-      $http({method: 'get',
-            url: '/delete?tech=' + techToEdit,
+      $http({method: 'delete',
+            url: '/api/tech/' + techToEdit,
             headers: {'Content-Type': 'application/vnd.api+json'}
       }).then(
         function(response) {
           if(response.data){
             self.message = 'Record deleted successfully';
+            console.log(self.message);
+            self.techRecords = TechRestService.query();
           }else{
             self.message = 'Record could not be deleted';
-            console.log("******Server response from edit save=" + self.message);
+            console.log(self.message);
           };
         }
       );//then
@@ -148,7 +180,7 @@ self.deleteLinkClicked = function(event) {
 
 }]);//consoleController
 
-
+// ******************************editController**********************************
 rApp.controller('editController', 
     ['$http', '$location', 'TechService', 
       function($http, $location, TechService) {
@@ -160,14 +192,15 @@ rApp.controller('editController',
     self.editFormSubmit = function() {
     console.log("Record to Save after edit (tech* description)= " + self.editTech.tech + "*" + self.editTech.description);
 
-      $http({method: 'post',
-            url: '/saveChanges',
+      $http({method: 'put',
+            url: '/api/tech',
             data: self.editTech,
             headers: {'Content-Type': 'application/vnd.api+json'}
       }).then(
         function(response) {
           if(response.data){
             self.message = 'Record Saved Successfully';
+             $location.path('console');
           }else{
             self.message = 'Record could not be saved';
             console.log("******Server response from edit save=" + self.message);
@@ -177,9 +210,10 @@ rApp.controller('editController',
   };//self.editFormSubmit 
 }]);//editController
 
+// **********************************addController******************************
 rApp.controller('addController', 
-    ['$http', '$location', 'TechService', 
-      function($http, $location, TechService) {
+    ['$http', '$location', 'TechService', 'TechRestService',
+      function($http, $location, TechService, TechRestService) {
   var self = this;
   self.addTech = {};
 
@@ -187,13 +221,15 @@ rApp.controller('addController',
     console.log("Record to Save after add (tech* description)= " + self.addTech.tech + "*" + self.addTech.description);
 
       $http({method: 'post',
-            url: '/add',
+            url: '/api/tech',
             data: self.addTech,
             headers: {'Content-Type': 'application/vnd.api+json'}
       }).then(
         function(response) {
           if(response.data){
             self.message = 'Record added Successfully';
+            $location.path('console');
+
           }else{
             self.message = 'Record could not be added';
             console.log("******Server response from add save=" + self.message);

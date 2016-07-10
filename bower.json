@@ -1,0 +1,27 @@
+{
+  "name": "mean-crud-rest-1",
+  "authors": [
+    "Akhilanand Singh <akhilanandsingh@gmail.com>"
+  ],
+  "description": "node, angular, mongodb and express app using REST apis on the server side and ngResource on the client side",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "angular": "1.5.x",
+    "angular-animate": "1.5.x",
+    "angular-mocks": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-route": "1.5.x",
+    "bootstrap": "3.3.x",
+    "jquery": "2.2.x"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

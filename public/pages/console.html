@@ -1,10 +1,14 @@
 <div class="container">
 <!-- ng-controller="consoleController as cController" -->
 <ul class="nav navbar-nav navbar-right" >
-        <li><a href="#login" ng-hide="cController.loginStatus"><i class="fa fa-home"></i> Login</a></li>
-        <li><a href="#logout" ng-show="cController.loginStatus"><i class="fa fa-home"></i> Logout</a></li>
+        <li><a href="#login" ng-hide="cController.loginStatus">
+        <i class="glyphicon glyphicon-log-in"></i> Login</a></li>
+        <li><a href="#register" ng-hide="cController.loginStatus">
+        <i class="glyphicon glyphicon-registration-mark"></i> Register</a></li>
         <li><a href="#console"><i class="fa fa-comment"></i> Console</a></li>
+        <li><a href="#logout" ng-show="cController.loginStatus"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
    </ul>
+   
  <p class="input-group "><span ng-bind="cController.message"></span></p>
  <div class="row" align="center">
   <H3>JavaScript technology Stack </H3>

@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html ng-app="meanRouteApp">
 <head>
- <link rel="stylesheet" 
-     href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
   <link rel="stylesheet" 
-     href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+  	href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" 
+    href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
 </head>
 
 <body >
-	<header>
-		<nav class="navbar navbar-default">
+
+	<!--
+	
+	<div class="navbar navbar-default  navbar-top" >
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/">MEAN CRUD application </a>
+	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	              <span class="icon-bar" ></span>
+	              <span class="icon-bar" ></span>
+	              <span class="icon-bar" ></span>
+	           </button>
+	        </div>
+
+	        <div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav"
+					ng-controller="consoleController as cController">
+				    <li><a href="#login" ng-hide="cController.loginStatus"><i class="fa fa-home"></i> Login</a></li>
+				    <li><a href="#register" ng-hide="cController.loginStatus"><i class="fa fa-home"></i> Register</a></li>
+				    <li><a href="#logout" ng-show="cController.loginStatus"><i class="fa fa-home"></i> Logout</a></li>
+				    <li><a href="#console"><i class="fa fa-comment"></i> Console</a></li>
+				</ul>
 			</div>
 		</div>
-		</nav>
-	</header>
+	</div>
+	-->
 
 	<div ng-view></div>
 	<!-- load angular -->
-	<script src="ng142/angular.min.js"></script>
-	<script src="ng142/angular-route.js"></script>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
 	<script src="script.js"></script>
 </body>
 </html>

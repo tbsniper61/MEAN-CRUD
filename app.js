@@ -14,34 +14,16 @@ app.use(bodyparser.json({ type: 'application/vnd.api+json' }));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(session({secret: "secret",  resave : true,  saveUninitialized : false}));
 
-app.get('/', routes.loginPageHandler);
-app.get('/logout', routes.logoutPageHandler);
 app.post('/auth', routes.authHandler);
-app.get('/console', routes.consoleHandler);
-app.get('/registerForm', routes.registerFormHandler);
 app.post('/register', routes.registerUserHandler);
-app.get('/edit', routes.editPageHandler);
-app.post('/saveChanges', routes.saveChangesHandler);
-app.get('/delete', routes.deletePageHandler);
-app.get('/addForm', routes.addFormHandler);
-app.post('/add', routes.addHandler);
 
+// REST Routes
+app.get('/api/tech', routes.getAllHandler);  // return all tech records
+app.get('/api/tech/:tech', routes.getOneHandler);  // return one record
+app.post('/api/tech', routes.postOneHandler); // add new tech record
+app.put('/api/tech', routes.updateOneHandler); // update a record
+app.delete('/api/tech/:tech', routes.deleteOneHandler); // detete a record
 
-//error handling
-app.use("*", function(req, res) {
-    res.status(404);
-    res.render('message.handlebars', 
-    	{message:'<blockquote class="mainLines"><code> The page you are looking for is not available or may have been moved.</code> </blockquote>'}
-    	);
-});
-
-app.use(function(error, req, res, next) {
-    console.log(chalk.red('Error : 500::' + error))
-    res.status(500);
-    res.render('message.handlebars', 
-    	{message:'<blockquote class="mainLines"><code>something went wrong as you tried to access this page</code>Probably this happened because there are some bugs in the application</blockquote>'}
-    	);
-});
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
