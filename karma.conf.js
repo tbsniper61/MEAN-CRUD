@@ -7,7 +7,9 @@ module.exports = function(config) {
       'public/bower_components/angular-route/angular-route.js',
       'public/bower_components/angular-resource/angular-resource.js',
       'public/bower_components/angular-mocks/angular-mocks.js',
-      'public/script.js',
+      'public/scripts/config.js',
+      'public/scripts/controllers.js',
+      'public/scripts/services.js',
       'public/scriptSpec.js'
     ],
     reporters: ['spec'],

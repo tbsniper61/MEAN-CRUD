@@ -1,4 +1,4 @@
-var rApp = angular.module('meanRouteApp', ['ngRoute', 'ngResource']);
+var rApp = angular.module('meanRestApp', ['ngRoute', 'ngResource']);
 
 // routes
 rApp.config(function($routeProvider) {

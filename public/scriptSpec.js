@@ -1,6 +1,6 @@
 describe('---Testing controllers in MEAN-CRUD-REST application---', function() {
   // Instantiate a new version of my module before each test
-  beforeEach(module('meanRouteApp'));
+  beforeEach(module('meanRestApp'));
 
   var myctrl;
   var backendMock;
