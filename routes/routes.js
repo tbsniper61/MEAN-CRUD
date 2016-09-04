@@ -68,6 +68,7 @@ exports.getOneHandler = function(req, res){
     console.log(chalk.yellow("Going to edit -> [" + techRec.tech + " : " + techRec.description + "]"));
     res.json(techRec);
   } 
+
 }); //TechModel.findOne
 }; //getOneHandler
 
@@ -81,17 +82,18 @@ exports.postOneHandler = function(req, res){
    newTech.save(function(err, savedUser){
      if(err){
      res.json(false);
-     console.log(techToEdit + " could not be added");
+     console.log(newTech.tech + " could not be added");
    }else{
      res.json(true);
-     console.log(techToEdit + " added successfully");
+     console.log(newTech.tech + " added successfully");
    } 
    }); //newTech.save
 }; //postOneHandler
 
 exports.updateOneHandler = function(req, res){
   //app.put('/api/tech'
-  var techRequest = req.body.tech;
+  var techRequest = req.params.tech;
+
   var techDescrRequest = req.body.description;
   console.log("Saving Edited records : " + techRequest + " : " + techDescrRequest);
   var message;
@@ -120,7 +122,3 @@ exports.deleteOneHandler = function(req, res){
      } 
   }); //TechModel.remove
 }; //deleteOneHandler
-
-
-
-

@@ -21,7 +21,7 @@ app.post('/register', routes.registerUserHandler);
 app.get('/api/tech', routes.getAllHandler);  // return all tech records
 app.get('/api/tech/:tech', routes.getOneHandler);  // return one record
 app.post('/api/tech', routes.postOneHandler); // add new tech record
-app.put('/api/tech', routes.updateOneHandler); // update a record
+app.put('/api/tech/:tech', routes.updateOneHandler); // update a record
 app.delete('/api/tech/:tech', routes.deleteOneHandler); // detete a record
 
 

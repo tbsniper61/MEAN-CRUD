@@ -29,14 +29,16 @@
 		  <tr>
 		      <td ng-bind="tech.tech"></td>
 		      <td ng-bind="tech.description"></td>
-		      <td><button id={{tech.tech}} 
-		      			  ng-click="cController.editLinkClicked($event)">
-		        <span class="glyphicon glyphicon-pencil"></span>
-		      </button></td>
-		      <td><button  id={{tech.tech}}
-		                  ng-click="cController.deleteLinkClicked($event)">
-		        <span class="glyphicon glyphicon-remove"></span>
-		      </button></td>
+		      <td>
+            <a href='#/editTech/{{tech.tech}}'>
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+          </td>
+          <td>
+            <a href='#/deleteTech/{{tech.tech}}'>
+              <span class="glyphicon glyphicon-remove"></span>
+            </a>
+          </td>
 		  </tr>
       </tbody>
     </table>

@@ -18,6 +18,13 @@
     "body-parser": "^1.14.2",
     "chalk": "^1.1.1",
     "express": "^4.13.3",
-    "express-session": "^1.12.1",
+    "express-session": "^1.12.1"
+  },
+  "devDependencies": {
+    "karma": "0.12.28",
+    "karma-chrome-launcher": "~0.1.7",
+    "karma-jasmine": "~0.2.0",
+    "jasmine-core" : "latest",
+    "karma-spec-reporter": "0.0.26"
   }
 }
