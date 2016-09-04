@@ -4,10 +4,8 @@ describe('---Testing controllers in MEAN-CRUD-REST application---', function() {
 
   var myctrl;
   var backendMock;
-  var anArray = [
-                {tech: 'Java', description: 'Oracle Sun Language'},
-                {tech: 'JavaScript', description: 'ECMAScript5'}
-                ];
+  var anArray = [   {tech: 'Java', description: 'Oracle Sun Language'},
+                    {tech: 'JavaScript', description: 'ECMAScript5'} ];
 
   // Before each unit test, instantiate a new instance
   // of the controller
