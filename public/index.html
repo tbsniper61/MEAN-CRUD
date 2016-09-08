@@ -3,15 +3,12 @@
 <head>
   <link rel="stylesheet" 
   	href="bower_components/bootstrap/dist/css/bootstrap.css"/>
-  <!--link rel="stylesheet" 
-    href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" /-->
+  <link rel="stylesheet" 
+    href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css"/>
 </head>
 
-<body >
-
-	<!--
-	
-	<div class="navbar navbar-default  navbar-top" >
+<body>
+	<div class="navbar navbar-inverse">
 		<div class="container">
 			<div class="navbar-header">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,16 +20,23 @@
 
 	        <div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav"
-					ng-controller="consoleController as cController">
-				    <li><a href="#login" ng-hide="cController.loginStatus"><i class="fa fa-home"></i> Login</a></li>
-				    <li><a href="#register" ng-hide="cController.loginStatus"><i class="fa fa-home"></i> Register</a></li>
-				    <li><a href="#logout" ng-show="cController.loginStatus"><i class="fa fa-home"></i> Logout</a></li>
-				    <li><a href="#console"><i class="fa fa-comment"></i> Console</a></li>
+					ng-controller="menuController">
+				    <li><a href="#console" ng-show="loginStatus">
+				    	<i class="fa fa-comment"></i> Console</a>
+				    </li>
+				    <li><a href="#register" ng-hide="loginStatus">
+				    	<i class="fa fa-home"></i> Register</a></li>
+				    <li><a href="#login" ng-hide="loginStatus">
+				    	<i class="fa fa-home"></i> Login</a></li>
+				    <li><a href="#logout" ng-show="loginStatus" 
+				    	ng-click="logoutSubmit()">
+				    	<i class="glyphicon glyphicon-log-out"></i> Logout</a>
+				    </li>				    
 				</ul>
 			</div>
 		</div>
-	</div>
-	-->
+	</div> 
+	
 
 	<div ng-view></div>
 	<!-- load angular -->

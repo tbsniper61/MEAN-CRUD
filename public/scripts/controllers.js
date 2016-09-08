@@ -1,6 +1,23 @@
+// ***************************** menuController ***********************************
+rApp.controller('menuController', 
+  ['$scope', 'TechService', function($scope, TechService) {
+  
+  $scope.loginStatus = TechService.getLoggedIN();
+
+  TechService.subscribe($scope, function somethingChanged() {
+        $scope.loginStatus = TechService.getLoggedIN(); // Handle notification
+  });//subscribe
+
+  $scope.logoutSubmit = function() {
+    TechService.setLoggedIN(false);
+    $scope.loginStatus = TechService.getLoggedIN();
+  }//logoutSubmit
+
+}]);//menuController
+
 // ***************************** loginController ***********************************
 rApp.controller('loginController', 
-  ['$http', 'TechService', '$location', function($http, tservice, $location) {
+  ['$scope', '$http', 'TechService', '$location',  function($scope, $http, tservice, $location) {
   var self = this;
   self.loginSubmit = function() {
       $http({method: 'post',
@@ -12,10 +29,12 @@ rApp.controller('loginController',
           if(response.data){
             self.message = 'Login succeessful';
             tservice.setLoggedIN(true);
+            tservice.notify();
             $location.path('console');
           }else{
             self.message = 'Login Failed';
             tservice.setLoggedIN(false);
+            tservice.notify();
           };
           console.log(self.message);
         }
@@ -31,10 +50,9 @@ rApp.controller('loginController',
         function(response) {
           if(response.data){
             self.message = 'Registration succeessful';
-            tservice.setLoggedIN(false);
+            $location.path('login');
           }else{
             self.message = 'Registration Failed';
-            tservice.setLoggedIN(false);
           };
           console.log(self.message);
         }
@@ -51,7 +69,6 @@ rApp.controller('consoleController',
   var cc = this;
   cc.techRecords = [];
   cc.loginStatus = TechService.getLoggedIN();
-
   cc.techRecords = RestService.query();
 }]);//consoleController
 
@@ -76,7 +93,7 @@ rApp.controller('editController',
 
 // ********************************** addController ******************************
 rApp.controller('addController', 
-    ['RestService', '$location', 'TechService',
+    ['RestService', '$location', 'TechService', 
       function(RestService, $location, TechService) {
   var ac = this;
   ac.addTech = {};
