@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html ng-app="meanRestApp">
 <head>
-  <link rel="stylesheet" 
-  	href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
   <link rel="stylesheet" 
     href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css"/>
 </head>
 
 <body>
-	<div class="navbar navbar-inverse">
+	<nav class="navbar navbar-default" ng-controller="menuController">
 		<div class="container">
 			<div class="navbar-header">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,28 +20,35 @@
 	        </div>
 
 	        <div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav"
-					ng-controller="menuController">
-				    <li><a href="#console" ng-show="loginStatus">
-				    	<i class="fa fa-comment"></i> Console</a>
+				<ul class="nav navbar-nav">
+					<li><a ng-show="loginStatus">
+						Hello {{username}}!</a>
 				    </li>
+				    <li><a href="#console" ng-show="loginStatus">
+				    	<span class="fa fa-comment"></span> Console</a>
+				    </li>
+			    
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
 				    <li><a href="#register" ng-hide="loginStatus">
-				    	<i class="fa fa-home"></i> Register</a></li>
+				    	<span class="glyphicon glyphicon-user"></span>
+				    	 Register</a></li>
 				    <li><a href="#login" ng-hide="loginStatus">
-				    	<i class="fa fa-home"></i> Login</a></li>
+				    	<span class="glyphicon glyphicon-log-in"></span>
+				    	 Login</a></li>
 				    <li><a href="#logout" ng-show="loginStatus" 
 				    	ng-click="logoutSubmit()">
-				    	<i class="glyphicon glyphicon-log-out"></i> Logout</a>
-				    </li>				    
-				</ul>
+				    	<span class="glyphicon glyphicon-log-out"></span>Logout</a>
+				    </li>					
+      			</ul>
 			</div>
 		</div>
-	</div> 
+	</nav> 
 	
-
 	<div ng-view></div>
-	<!-- load angular -->
+	
 	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>

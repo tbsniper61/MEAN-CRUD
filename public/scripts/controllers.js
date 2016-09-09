@@ -3,14 +3,18 @@ rApp.controller('menuController',
   ['$scope', 'TechService', function($scope, TechService) {
   
   $scope.loginStatus = TechService.getLoggedIN();
+  $scope.username = TechService.getUsername();
 
   TechService.subscribe($scope, function somethingChanged() {
         $scope.loginStatus = TechService.getLoggedIN(); // Handle notification
+        $scope.username = TechService.getUsername();
   });//subscribe
 
   $scope.logoutSubmit = function() {
     TechService.setLoggedIN(false);
     $scope.loginStatus = TechService.getLoggedIN();
+    TechService.setUsername("")
+    $scope.username = TechService.getUsername();
   }//logoutSubmit
 
 }]);//menuController
@@ -29,6 +33,7 @@ rApp.controller('loginController',
           if(response.data){
             self.message = 'Login succeessful';
             tservice.setLoggedIN(true);
+            tservice.setUsername(self.login.loginName);
             tservice.notify();
             $location.path('console');
           }else{
