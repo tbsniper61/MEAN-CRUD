@@ -1,7 +1,7 @@
 var rApp = angular.module('meanRestApp', ['ngRoute', 'ngResource']);
 
 // routes
-rApp.config(function($routeProvider) {
+rApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         // route for the login page
         .when('/', {
@@ -58,4 +58,4 @@ rApp.config(function($routeProvider) {
             controller  : 'editController',
             controllerAs : 'eController'
         });
-});
+}]);

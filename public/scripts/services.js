@@ -34,8 +34,8 @@ rApp.service('TechService', ['$rootScope', function($rootScope){
 }]);
 
 // ***************************** RestService ***********************************
-rApp.factory('RestService', function($resource) {
+rApp.factory('RestService', ['$resource', function($resource) {
   return $resource('/api/tech/:tech', null, {
       'update': { method:'PUT' }
     }); // The full endpoint address
-});//RestService
+}]);//RestService

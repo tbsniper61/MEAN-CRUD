@@ -21,7 +21,7 @@ rApp.controller('menuController',
 
 // ***************************** loginController ***********************************
 rApp.controller('loginController', 
-  ['$scope', '$http', 'TechService', '$location',  function($scope, $http, tservice, $location) {
+  ['$http', 'TechService', '$location',  function($http, tservice, $location) {
   var self = this;
   self.loginSubmit = function() {
       $http({method: 'post',
